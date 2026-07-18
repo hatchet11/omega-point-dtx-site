@@ -2,6 +2,8 @@
 
 **Sovereign, self-tuning security monitoring** — by [Omega Point Solutions](https://omegapointsolutions.com).
 
+### *Prediction · Knowledge · Intelligence — converged.*
+
 For teams that **can't hand their telemetry to a cloud SOC** — law enforcement, county & municipal
 government, and regulated small business. Omega Sentinel runs where your data already lives.
 

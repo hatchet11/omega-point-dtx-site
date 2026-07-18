@@ -1,11 +1,11 @@
-# Omega Sentinel
+# Omega Point DTX
 
 **Sovereign, self-tuning security monitoring** — by [Omega Point Solutions](https://omegapointsolutions.com).
 
 ### *Prediction · Knowledge · Intelligence — converged.*
 
 For teams that **can't hand their telemetry to a cloud SOC** — law enforcement, county & municipal
-government, and regulated small business. Omega Sentinel runs where your data already lives.
+government, and regulated small business. Omega Point DTX runs where your data already lives.
 
 ## The problem
 A modern detection engine throws hundreds of "critical" alerts a day — most of them benign noise
@@ -13,7 +13,7 @@ from normal software. Diagnosing, tuning, and running that engine takes a securi
 agency doesn't have. So the alerts get ignored, and the real one slips through.
 
 ## Detect · Predict · Harden — one pane of glass
-Omega Sentinel adds an intelligence layer on top of a proven open detection engine:
+Omega Point DTX adds an intelligence layer on top of a proven open detection engine:
 
 - **Grounds it** — an AI analyst explains every alert in plain English and tells you whether it's a
   benign false-positive or a real threat, backed by a curated SOC knowledge base.
@@ -33,10 +33,10 @@ Omega Sentinel adds an intelligence layer on top of a proven open detection engi
   a SIEM engineer.
 
 ## Part of the Omega Point suite
-`Omega Guard` (brand & clone protection) · `Omega Lens` (deepfake/media) · **`Omega Sentinel`**
+`Omega Guard` (brand & clone protection) · `Omega Lens` (deepfake/media) · **`Omega Point DTX`**
 (security monitoring) · `Threat ID` (bad-actor intelligence).
 
 ---
 
-*Omega Sentinel is in active development. For early-access or agency inquiries, contact Omega Point
+*Omega Point DTX is in active development. For early-access or agency inquiries, contact Omega Point
 Solutions.* This repository hosts public project information only.

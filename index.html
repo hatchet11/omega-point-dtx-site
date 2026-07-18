@@ -1,335 +1,278 @@
 <!DOCTYPE html>
-<!-- Omega Point DTX — animated landing · Omega Point Solutions LLC -->
+<!-- Omega Point DTX — landing v3 (editorial / schematic) · Omega Point Solutions LLC -->
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Omega Point DTX — Sovereign AI Security Operations</title>
-<meta name="description" content="Omega Point DTX is a sovereign, self-tuning security operations layer. Prediction, Knowledge, and Intelligence converge on every alert — on a local model, so your data never leaves the box." />
+<title>Omega Point DTX — Sovereign Security Operations</title>
+<meta name="description" content="Omega Point DTX weighs what each alert is, who is behind it, and what is coming — then decides, on a model that runs entirely on your own hardware." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --bg:#0a0e1e; --bg2:#0f1430; --acc:#6d5efc; --acc2:#9d8bff;
-    --red:#e74c3c; --yel:#f6c843; --grn:#37d39b;
-    --t0:#f4f2ff; --t1:#d6d8ec; --t2:#8b8db6;
-    --line:rgba(157,139,255,.16);
+    --bg:#08090b; --panel:#0d0f13; --panel2:#101318;
+    --ink:#f3f5f7; --mut:#9aa2ac; --faint:#626b76;
+    --acc:#5ec98a; --acc-d:#3f9c69;
+    --hair:rgba(255,255,255,.08); --hair2:rgba(255,255,255,.05);
+    --ease:cubic-bezier(.32,.72,0,1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t1);overflow-x:hidden;line-height:1.55;-webkit-font-smoothing:antialiased}
-  .grid{position:fixed;inset:-50%;z-index:0;opacity:.5;
-    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
-    background-size:46px 46px;animation:gridPan 22s linear infinite;
-    mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 35%,transparent 78%)}
-  @keyframes gridPan{to{transform:translate(46px,46px)}}
-  .glowblob{position:fixed;border-radius:50%;filter:blur(90px);z-index:0;opacity:.42;pointer-events:none}
-  .b1{width:540px;height:540px;background:radial-gradient(circle,#5b47d6,transparent 70%);top:-170px;right:-120px;animation:drift 18s ease-in-out infinite}
-  .b2{width:440px;height:440px;background:radial-gradient(circle,#25406e,transparent 70%);bottom:-150px;left:-110px;animation:drift 23s ease-in-out infinite reverse}
-  #fx{position:fixed;inset:0;z-index:1;pointer-events:none}
-  @keyframes drift{50%{transform:translate(40px,30px) scale(1.08)}}
-  .wrap{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:0 24px}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--mut);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:rgba(94,201,138,.24);color:var(--ink)}
+  /* fixed film-grain + vignette, pointer-none */
+  .veil{position:fixed;inset:0;z-index:60;pointer-events:none;
+    background:radial-gradient(120% 90% at 50% -10%,transparent 55%,rgba(0,0,0,.55) 100%)}
+  .grain{position:fixed;inset:0;z-index:61;pointer-events:none;opacity:.035;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+  .display{font-family:'Space Grotesk',sans-serif}
 
-  nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
-  .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:.3px;color:var(--t0);font-size:19px}
-  .logomark{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--acc),#3b2fa6);
-    display:grid;place-items:center;box-shadow:0 0 0 1px rgba(157,139,255,.4),0 8px 24px rgba(109,94,252,.4)}
-  .logomark svg{width:20px;height:20px}
-  .navcta{font-size:14px;color:var(--t2);text-decoration:none;border:1px solid var(--line);padding:9px 16px;border-radius:9px;transition:.2s}
-  .navcta:hover{color:var(--t0);border-color:var(--acc);background:rgba(109,94,252,.12)}
+  /* floating glass pill nav */
+  .nav{position:sticky;top:18px;z-index:40;margin:18px auto 0;width:max-content;max-width:calc(100% - 40px);
+    display:flex;align-items:center;gap:26px;padding:10px 10px 10px 20px;border-radius:999px;
+    background:rgba(16,19,24,.66);backdrop-filter:blur(20px);border:1px solid var(--hair);
+    box-shadow:0 8px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.05)}
+  .nav .b{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-weight:600;color:var(--ink);font-size:15px;letter-spacing:-.01em}
+  .nav .b .mk{width:26px;height:26px;border-radius:7px;border:1px solid var(--hair);display:grid;place-items:center;background:rgba(94,201,138,.08)}
+  .nav .lk{color:var(--faint);text-decoration:none;font-size:13.5px;font-weight:500;transition:color .3s var(--ease)}
+  .nav .lk:hover{color:var(--ink)}
+  .nav .cta{display:inline-flex;align-items:center;gap:10px;background:var(--acc);color:#04150c;font-weight:600;
+    font-size:13.5px;padding:8px 8px 8px 16px;border-radius:999px;text-decoration:none;transition:transform .4s var(--ease)}
+  .nav .cta .ic{width:26px;height:26px;border-radius:999px;background:rgba(0,0,0,.16);display:grid;place-items:center;transition:transform .4s var(--ease)}
+  .nav .cta:hover{transform:translateY(-1px)} .nav .cta:hover .ic{transform:translate(2px,-1px)}
+  @media(max-width:720px){.nav .lk{display:none}}
 
-  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:44px 0 68px}
-  .eyebrow{display:inline-flex;align-items:center;gap:8px;font:600 12px/1 'JetBrains Mono',monospace;letter-spacing:2px;text-transform:uppercase;color:var(--acc2);border:1px solid var(--line);padding:8px 13px;border-radius:99px;background:rgba(109,94,252,.08)}
-  .dot{width:7px;height:7px;border-radius:50%;background:var(--acc2);box-shadow:0 0 10px var(--acc2);animation:blink 1.6s ease-in-out infinite}
-  @keyframes blink{50%{opacity:.25}}
-  h1{font-size:clamp(34px,5vw,58px);line-height:1.05;letter-spacing:-1.4px;color:var(--t0);font-weight:900;margin:20px 0 0}
-  h1 .g{background:linear-gradient(100deg,var(--acc2),#63e6e6);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .type{font:600 15px/1 'JetBrains Mono',monospace;color:var(--t2);margin-top:18px;height:20px}
-  .type b{color:var(--acc2);font-weight:600}
-  .cursor{display:inline-block;width:9px;height:17px;background:var(--acc2);margin-left:2px;vertical-align:-2px;animation:blink .9s step-end infinite}
-  .sub{font-size:17px;color:var(--t1);margin-top:22px;max-width:530px}
-  .ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
-  .btn{font-weight:700;font-size:15px;text-decoration:none;padding:14px 24px;border-radius:11px;transition:.2s;display:inline-flex;align-items:center;gap:9px}
-  .btn-p{background:linear-gradient(135deg,var(--acc2),var(--acc));color:#0a0620;box-shadow:0 10px 30px rgba(109,94,252,.45)}
-  .btn-p:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(109,94,252,.6)}
-  .btn-s{color:var(--t0);border:1px solid var(--line)}
-  .btn-s:hover{border-color:var(--acc);background:rgba(109,94,252,.12)}
-  .trust{display:flex;gap:22px;margin-top:30px;flex-wrap:wrap}
-  .trust div{font:600 12px/1.4 'JetBrains Mono',monospace;color:var(--t2)}
-  .trust b{display:block;color:var(--t0);font-size:19px;font-weight:800;font-family:'Inter'}
+  .tag{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--hair);border-radius:999px;
+    padding:7px 14px;font-family:'Space Grotesk';font-size:10px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--mut)}
+  .tag .live{width:6px;height:6px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 rgba(94,201,138,.5);animation:live 2.4s var(--ease) infinite}
+  @keyframes live{0%{box-shadow:0 0 0 0 rgba(94,201,138,.45)}70%,100%{box-shadow:0 0 0 7px rgba(94,201,138,0)}}
 
-  .statband{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:34px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:10px}
-  .stat{text-align:center;position:relative}
-  .stat:not(:last-child)::after{content:"";position:absolute;right:-9px;top:14%;height:72%;width:1px;background:var(--line)}
-  .stat b{display:block;font:900 38px/1 'Inter';letter-spacing:-1.5px;background:linear-gradient(180deg,var(--t0),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .stat span{display:block;margin-top:7px;font:600 11px/1.4 'JetBrains Mono',monospace;color:var(--t2);letter-spacing:.3px}
-  @media(max-width:860px){.statband{grid-template-columns:1fr 1fr;gap:26px}.stat:nth-child(2)::after{display:none}}
+  /* editorial split hero */
+  .hero{display:grid;grid-template-columns:1.12fr .88fr;gap:56px;align-items:center;padding:92px 0 96px}
+  .hero h1{font-family:'Space Grotesk';font-weight:500;color:var(--ink);font-size:clamp(40px,6vw,74px);
+    line-height:.98;letter-spacing:-.035em;margin:26px 0 0}
+  .hero h1 em{font-style:normal;color:var(--acc)}
+  .lead{font-size:18px;color:var(--mut);max-width:520px;margin-top:26px}
+  .lead b{color:var(--ink);font-weight:600}
+  .row-cta{display:flex;align-items:center;gap:16px;margin-top:34px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:14px;text-decoration:none;font-weight:600;border-radius:999px;transition:transform .45s var(--ease)}
+  .btn-p{background:var(--acc);color:#04150c;font-size:15px;padding:13px 13px 13px 26px}
+  .btn-p .ic{width:34px;height:34px;border-radius:999px;background:rgba(0,0,0,.16);display:grid;place-items:center;transition:transform .45s var(--ease)}
+  .btn-p:hover{transform:translateY(-2px)} .btn-p:hover .ic{transform:translate(3px,-1px) scale(1.06)} .btn-p:active{transform:scale(.985)}
+  .btn-g{color:var(--ink);font-size:15px;padding:13px 22px;border:1px solid var(--hair)}
+  .btn-g:hover{border-color:rgba(94,201,138,.5);color:var(--acc)}
+  .metrics{display:flex;gap:0;margin-top:52px;border-top:1px solid var(--hair2);padding-top:26px}
+  .metrics .m{padding-right:30px;margin-right:30px;position:relative}
+  .metrics .m:not(:last-child)::after{content:"";position:absolute;right:0;top:2px;height:calc(100% - 4px);width:1px;background:var(--hair2)}
+  .metrics .n{font-family:'Space Grotesk';font-weight:600;color:var(--ink);font-size:30px;letter-spacing:-.03em;line-height:1}
+  .metrics .l{font-size:12px;color:var(--faint);margin-top:8px;max-width:120px}
 
-  .scanner{position:relative;height:440px;display:grid;place-items:center;perspective:1100px}
-  #conv{position:absolute;width:440px;height:440px;filter:drop-shadow(0 0 18px rgba(109,94,252,.28))}
-  .card{position:relative;width:340px;background:linear-gradient(160deg,#141633,#0c0f28);
-    border:1px solid rgba(157,139,255,.3);border-radius:16px;padding:20px;
-    box-shadow:0 24px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.05);overflow:hidden;
-    transition:transform .16s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d;will-change:transform}
-  .scanner:not(:hover) .card{animation:bob 6s ease-in-out infinite}
-  @keyframes bob{50%{transform:translateY(-9px)}}
-  .card::after{content:"";position:absolute;inset:0;border-radius:16px;pointer-events:none;
-    background:linear-gradient(115deg,transparent 32%,rgba(157,139,255,.1) 46%,transparent 60%);background-size:260% 260%;animation:sheen 5.5s ease-in-out infinite}
-  @keyframes sheen{0%{background-position:130% 0}100%{background-position:-130% 0}}
-  .pulsering{position:absolute;inset:-2px;border-radius:18px;border:2px solid var(--red);opacity:0;pointer-events:none;box-shadow:0 0 24px rgba(231,76,60,.5);animation:pr 2.8s ease-out infinite;animation-delay:2.4s}
-  @keyframes pr{0%{opacity:0;transform:scale(.93)}14%{opacity:.75}60%,100%{opacity:0;transform:scale(1.14)}}
-  .card .scanline{position:absolute;left:0;right:0;height:60px;top:-60px;background:linear-gradient(180deg,transparent,rgba(157,139,255,.28),transparent);box-shadow:0 0 24px rgba(157,139,255,.5);animation:scan 3.4s cubic-bezier(.6,0,.4,1) infinite}
-  @keyframes scan{0%{top:-60px}55%{top:100%}100%{top:100%}}
-  .chead{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-  .chead .tag{font:700 10px/1 'JetBrains Mono',monospace;letter-spacing:1.5px;color:var(--t2);text-transform:uppercase}
-  .badge{font:800 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;padding:5px 9px;border-radius:6px;text-transform:uppercase}
-  .badge.threat{color:var(--red);background:rgba(231,76,60,.13);border:1px solid rgba(231,76,60,.4);animation:flashred 2.6s ease-in-out infinite;animation-delay:2.5s}
-  @keyframes flashred{0%,40%{opacity:.3}50%,100%{opacity:1}}
-  .row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);opacity:0;animation:rowIn .5s forwards}
-  .row:nth-child(3){animation-delay:.6s}.row:nth-child(4){animation-delay:1.0s}.row:nth-child(5){animation-delay:1.4s}.row:nth-child(6){animation-delay:1.8s}
-  @keyframes rowIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
-  .row .k{font:500 12px 'JetBrains Mono',monospace;color:var(--t2)}
-  .row .v{font:600 12px 'JetBrains Mono',monospace;display:flex;align-items:center;gap:7px}
-  .ok{color:var(--grn)} .bad{color:var(--red)} .warn{color:var(--yel)}
-  .ico{width:15px;height:15px;border-radius:50%;display:grid;place-items:center;font-size:9px;font-weight:900}
-  .ico.ok{background:rgba(55,211,155,.16);color:var(--grn)} .ico.bad{background:rgba(231,76,60,.18);color:var(--red)} .ico.warn{background:rgba(246,200,67,.16);color:var(--yel)}
-  .verdict{margin-top:14px;padding:11px;border-radius:9px;background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.32);font:700 12px 'JetBrains Mono',monospace;color:var(--red);text-align:center;opacity:0;animation:rowIn .5s 2.4s forwards;letter-spacing:.4px}
+  /* double-bezel */
+  .bezel{background:rgba(255,255,255,.035);border:1px solid var(--hair);border-radius:28px;padding:8px}
+  .core{background:var(--panel);border-radius:21px;box-shadow:inset 0 1px 1px rgba(255,255,255,.06);overflow:hidden}
 
-  section{padding:66px 0}
-  .stitle{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--acc2);font-family:'JetBrains Mono',monospace}
-  .sh{font-size:clamp(26px,3.4vw,38px);font-weight:850;color:var(--t0);letter-spacing:-.8px;margin:12px 0 8px;max-width:700px}
-  .sp{color:var(--t2);max-width:640px;font-size:16px}
-  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px}
-  .feat{background:linear-gradient(160deg,rgba(20,22,51,.7),rgba(12,15,40,.5));border:1px solid var(--line);border-radius:14px;padding:24px;transition:.25s}
-  .feat:hover{border-color:rgba(157,139,255,.42);transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.4)}
-  .fi{width:44px;height:44px;border-radius:11px;background:rgba(109,94,252,.14);display:grid;place-items:center;margin-bottom:16px}
-  .fi svg{width:23px;height:23px;stroke:var(--acc2)}
-  .feat h3{color:var(--t0);font-size:17px;font-weight:700;margin-bottom:7px}
-  .feat p{color:var(--t2);font-size:14px}
-  .tri{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:38px}
-  .tri .feat{text-align:center}
-  .tri .fi{margin:0 auto 14px}
-  .tri .lab{font:700 11px 'JetBrains Mono',monospace;letter-spacing:1.5px;color:var(--acc2);text-transform:uppercase}
+  /* schematic panel */
+  .sch{padding:26px}
+  .sch .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .sch .sh span{font-family:'Space Grotesk';font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+  .sch svg{width:100%;height:auto;display:block}
+  .lbl{font-family:'Space Grotesk';font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+  .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.5s var(--ease) forwards}
+  path.draw{stroke-dasharray:600;stroke-dashoffset:600}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .d2{animation-delay:.35s}.d3{animation-delay:.7s}
+  @keyframes cpulse{0%,100%{opacity:.5}50%{opacity:1}}
 
-  /* defense-in-depth suite */
-  .layers{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
-  .layer{border:1px solid var(--line);border-radius:14px;padding:22px;background:rgba(15,20,48,.5);position:relative;transition:.25s}
-  .layer:hover{transform:translateY(-3px);border-color:rgba(157,139,255,.4)}
-  .layer.here{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc),0 18px 44px rgba(109,94,252,.22)}
-  .layer .ln{font:700 10px 'JetBrains Mono',monospace;letter-spacing:1px;color:var(--t2);text-transform:uppercase}
-  .layer h4{color:var(--t0);font-size:16px;font-weight:800;margin:8px 0 6px}
-  .layer p{color:var(--t2);font-size:13px}
-  .layer .you{position:absolute;top:-10px;right:16px;background:var(--acc);color:#0a0620;font:800 9px 'JetBrains Mono',monospace;letter-spacing:1px;padding:4px 9px;border-radius:6px;text-transform:uppercase}
+  /* sections */
+  section{padding:96px 0}
+  .kick{font-family:'Space Grotesk';font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--acc)}
+  .h2{font-family:'Space Grotesk';font-weight:500;color:var(--ink);font-size:clamp(28px,4vw,44px);letter-spacing:-.03em;line-height:1.04;margin:16px 0 0;max-width:720px}
+  .desc{color:var(--mut);max-width:600px;margin-top:16px;font-size:16.5px}
 
-  .cta{border:1px solid var(--acc);border-radius:20px;padding:44px;text-align:center;background:linear-gradient(160deg,rgba(109,94,252,.14),rgba(15,20,48,.5));margin-top:24px}
-  .cta h2{color:var(--t0);font-size:clamp(24px,3vw,34px);font-weight:850;letter-spacing:-.6px}
-  .cta p{color:var(--t1);max-width:560px;margin:12px auto 26px;font-size:16px}
+  /* asymmetric bento */
+  .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:48px}
+  .cell{grid-column:span 2}
+  .cell.wide{grid-column:span 4}
+  .card{height:100%;padding:30px}
+  .card .ci{width:38px;height:38px;border-radius:10px;border:1px solid var(--hair);display:grid;place-items:center;margin-bottom:20px}
+  .card .ci svg{width:19px;height:19px;stroke:var(--acc);fill:none;stroke-width:1.4}
+  .card .kl{font-family:'Space Grotesk';font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .card h3{font-family:'Space Grotesk';font-weight:600;color:var(--ink);font-size:19px;letter-spacing:-.02em;margin:6px 0 10px}
+  .card p{font-size:14.5px;color:var(--mut)}
+  .card.feature h3{font-size:24px}
+  .card.feature p{font-size:16px;max-width:420px}
+  @media(max-width:820px){.hero{grid-template-columns:1fr;gap:36px;padding:66px 0 54px}.bento{grid-template-columns:1fr}.cell,.cell.wide{grid-column:span 1}}
 
-  footer{border-top:1px solid var(--line);padding:34px 0;text-align:center;color:var(--t2);font-size:13px}
-  footer b{color:var(--t1)}
-  .fadeup{opacity:0;transform:translateY(24px);transition:.7s cubic-bezier(.2,.7,.2,1)}
-  .fadeup.in{opacity:1;transform:none}
-  @media(max-width:860px){.hero{grid-template-columns:1fr;gap:30px}.scanner{height:400px;order:-1}.feats,.tri{grid-template-columns:1fr}.layers{grid-template-columns:1fr 1fr}}
+  /* suite layers */
+  .layers{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px;align-items:stretch}
+  .layers>div,.layers .bezel,.layers .core{height:100%}
+  .lay{padding:26px;display:flex;flex-direction:column}
+  .lay .ln{font-family:'Space Grotesk';font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .lay h4{font-family:'Space Grotesk';font-weight:600;color:var(--ink);font-size:17px;margin:10px 0 8px;letter-spacing:-.01em}
+  .lay p{font-size:13px;color:var(--mut)}
+  .bezel.self{border-color:rgba(94,201,138,.42);background:rgba(94,201,138,.05)}
+  .lay .here{align-self:flex-start;margin-top:auto;padding-top:0;font-family:'Space Grotesk';font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);border:1px solid rgba(94,201,138,.34);border-radius:999px;padding:4px 9px;margin-top:16px}
+  @media(max-width:820px){.layers{grid-template-columns:1fr 1fr}}
+
+  /* closing */
+  .close{padding:64px}
+  .close h2{font-family:'Space Grotesk';font-weight:500;color:var(--ink);font-size:clamp(26px,3.4vw,40px);letter-spacing:-.03em;line-height:1.05}
+  .close p{color:var(--mut);max-width:540px;margin:16px auto 30px;font-size:16.5px}
+  .close-inner{text-align:center;padding:60px 28px}
+
+  footer{border-top:1px solid var(--hair2);padding:40px 0}
+  .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:13px;color:var(--faint)}
+  .foot b{color:var(--mut);font-weight:600}
+
+  .rv{opacity:0;transform:translateY(22px);filter:blur(6px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
+  .rv.in{opacity:1;transform:none;filter:none}
 </style>
 </head>
 <body>
-<div class="grid"></div><canvas id="fx"></canvas><div class="glowblob b1"></div><div class="glowblob b2"></div>
+<div class="veil"></div><div class="grain"></div>
+
+<nav class="nav">
+  <div class="b"><span class="mk"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 3 5 6v5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-3Z" stroke="#5ec98a" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 8v8M8 12h8" stroke="#5ec98a" stroke-width="1.3" stroke-linecap="round"/></svg></span>Omega Point DTX</div>
+  <a class="lk" href="#how">How it works</a>
+  <a class="lk" href="#caps">Capabilities</a>
+  <a class="lk" href="#suite">The suite</a>
+  <a class="cta" href="#access">Request access<span class="ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#04150c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+</nav>
 
 <div class="wrap">
-  <nav>
-    <div class="brand">
-      <span class="logomark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L4 5v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z" stroke="#f4f2ff" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="11" r="2.4" fill="#9d8bff"/><path d="M12 6.2v2.1M12 13.6v2.1M8.2 11h2.1M13.7 11h2.1" stroke="#9d8bff" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-      Omega Point DTX
-    </div>
-    <a class="navcta" href="#access">Request access</a>
-  </nav>
-
-  <!-- HERO -->
-  <div class="hero">
+  <!-- HERO: editorial split -->
+  <header class="hero">
     <div>
-      <span class="eyebrow"><span class="dot"></span>Sovereign AI · Security Operations</span>
-      <h1>See the attack,<br>not the <span class="g">noise.</span></h1>
-      <div class="type"><b id="tw"></b><span class="cursor"></span></div>
-      <p class="sub">Omega Point DTX is a sovereign, self-tuning security operations layer. Three intelligences — <b style="color:var(--acc2)">Prediction</b>, <b style="color:var(--acc2)">Knowledge</b>, and <b style="color:var(--acc2)">Intelligence</b> — converge on every alert to tell you what's real, what's coming, and what to lock down. All on a local model, so your data never leaves the box.</p>
-      <div class="ctas">
-        <a class="btn btn-p" href="#access">Request early access
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#0a0620" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <a class="btn btn-s" href="#how">How it works</a>
+      <span class="tag"><span class="live"></span>Sovereign security operations</span>
+      <h1 class="display">Three intelligences.<br>One verdict on <em>every alert.</em></h1>
+      <p class="lead">Omega Point DTX weighs <b>what each alert is</b>, <b>who is behind it</b>, and <b>what is coming</b> — then decides. The reasoning runs on a model hosted entirely on your own hardware; nothing leaves the building.</p>
+      <div class="row-cta">
+        <a class="btn btn-p" href="#access">Request early access<span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#04150c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+        <a class="btn btn-g" href="#how">See how it reasons</a>
       </div>
-      <div class="trust">
-        <div><b>Sovereign</b>runs on a local model</div>
-        <div><b>CIS / STIG</b>hardening built in</div>
-        <div><b>Open engine</b>Wazuh core, untouched</div>
+      <div class="metrics">
+        <div class="m"><div class="n">Three</div><div class="l">intelligences per verdict</div></div>
+        <div class="m"><div class="n">Local</div><div class="l">reasoning, on your hardware</div></div>
+        <div class="m"><div class="n">Four</div><div class="l">layers of defense in depth</div></div>
       </div>
     </div>
 
-    <!-- convergence animation + triage card -->
-    <div class="scanner">
-      <canvas id="conv"></canvas>
-      <div class="card" id="card">
-        <div class="scanline"></div>
-        <div class="chead">
-          <span class="tag">ALERT · TRIAGE</span>
-          <span class="badge threat">⚠ Threat</span>
+    <!-- engineered schematic -->
+    <div class="bezel">
+      <div class="core sch">
+        <div class="sh"><span>Convergence · live</span><span>DTX·01</span></div>
+        <svg viewBox="0 0 420 356" fill="none" aria-hidden="true">
+          <!-- connectors -->
+          <path id="p1" class="draw" d="M96 70 C 200 70, 210 178, 300 178" stroke="rgba(255,255,255,.16)" stroke-width="1.2"/>
+          <path id="p2" class="draw d2" d="M96 178 C 190 178, 210 178, 300 178" stroke="rgba(255,255,255,.16)" stroke-width="1.2"/>
+          <path id="p3" class="draw d3" d="M96 286 C 200 286, 210 178, 300 178" stroke="rgba(255,255,255,.16)" stroke-width="1.2"/>
+          <path class="draw d3" d="M340 178 L 392 178" stroke="rgba(94,201,138,.5)" stroke-width="1.4"/>
+          <!-- source nodes -->
+          <g>
+            <circle cx="96" cy="70" r="6" fill="#0d0f13" stroke="#5ec98a" stroke-width="1.3"/>
+            <circle cx="96" cy="178" r="6" fill="#0d0f13" stroke="#5ec98a" stroke-width="1.3"/>
+            <circle cx="96" cy="286" r="6" fill="#0d0f13" stroke="#5ec98a" stroke-width="1.3"/>
+            <text class="lbl" x="80" y="52" text-anchor="start" fill="#9aa2ac">Prediction · ODIN</text>
+            <text class="lbl" x="80" y="160" text-anchor="start" fill="#9aa2ac">Knowledge · DAN-O</text>
+            <text class="lbl" x="80" y="312" text-anchor="start" fill="#9aa2ac">Intelligence · Threat ID</text>
+          </g>
+          <!-- core -->
+          <g style="animation:cpulse 3s var(--ease) infinite">
+            <path d="M300 158 L320 178 L300 198 L280 178 Z" fill="#0d0f13" stroke="#5ec98a" stroke-width="1.4"/>
+            <circle cx="300" cy="178" r="3" fill="#5ec98a"/>
+          </g>
+          <text class="lbl" x="300" y="228" text-anchor="middle" fill="#626b76">Converge</text>
+          <!-- verdict readout -->
+          <rect x="352" y="164" width="52" height="28" rx="6" fill="rgba(94,201,138,.08)" stroke="rgba(94,201,138,.4)" stroke-width="1"/>
+          <text class="lbl" x="378" y="176" text-anchor="middle" fill="#5ec98a" font-size="8">REAL</text>
+          <text class="lbl" x="378" y="186" text-anchor="middle" fill="#9aa2ac" font-size="7">99%</text>
+          <!-- traveling signals -->
+          <circle r="2.6" fill="#5ec98a"><animateMotion dur="2.2s" repeatCount="indefinite" begin="0.9s"><mpath href="#p1"/></animateMotion></circle>
+          <circle r="2.6" fill="#5ec98a"><animateMotion dur="2.2s" repeatCount="indefinite" begin="1.6s"><mpath href="#p2"/></animateMotion></circle>
+          <circle r="2.6" fill="#e0b64a"><animateMotion dur="2.2s" repeatCount="indefinite" begin="1.2s"><mpath href="#p3"/></animateMotion></circle>
+        </svg>
+        <div style="border-top:1px solid var(--hair2);margin-top:8px;padding-top:14px;display:flex;justify-content:space-between">
+          <span class="lbl" style="color:var(--faint)">sshd · level 5</span>
+          <span class="lbl" style="color:var(--acc)">escalated by convergence</span>
         </div>
-        <div class="row"><span class="k">Alert · sshd (level 5)</span><span class="v warn">LOW SEV <span class="ico warn">!</span></span></div>
-        <div class="row"><span class="k">Knowledge · DAN-O</span><span class="v">auth failure</span></div>
-        <div class="row"><span class="k">Intelligence · Threat ID</span><span class="v bad">IP MALICIOUS <span class="ico bad">✕</span></span></div>
-        <div class="row"><span class="k">Prediction · ODIN</span><span class="v warn">ssh-brute ↑ rising <span class="ico warn">!</span></span></div>
-        <div class="verdict">CONVERGED VERDICT: REAL · 99% — ESCALATE</div>
-        <div class="pulsering"></div>
       </div>
     </div>
-  </div>
+  </header>
 </div>
 
-<!-- BY THE NUMBERS -->
-<div class="wrap"><div class="statband fadeup">
-  <div class="stat"><b data-to="3">0</b><span>intelligences · one verdict</span></div>
-  <div class="stat"><b data-to="12">0</b><span>CIS/STIG hardening checks</span></div>
-  <div class="stat"><b data-to="100" data-suf="%">0</b><span>local · sovereign</span></div>
-  <div class="stat"><b data-to="4">0</b><span>-layer defense-in-depth suite</span></div>
-</div></div>
-
-<!-- CONVERGENCE / HOW -->
-<section id="how" class="wrap fadeup">
-  <span class="stitle">The convergence</span>
-  <h2 class="sh">Three brains. One decision. On your terms.</h2>
-  <p class="sp">A raw SIEM sees a log. Omega Point DTX sees an attack — because three independent intelligences weigh in on every alert, and none of them decides alone.</p>
-  <div class="tri">
-    <div class="feat">
-      <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div>
-      <span class="lab">Prediction · ODIN</span>
-      <h3>What's coming?</h3><p>Forecasts rising attack classes and detects volume spikes across your sensors — early warning before it hits.</p>
-    </div>
-    <div class="feat">
-      <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 19V5a2 2 0 012-2h9l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2z"/><path d="M9 13l2 2 4-4"/></svg></div>
-      <span class="lab">Knowledge · DAN-O</span>
-      <h3>What is this?</h3><p>Explains every alert in plain English against a curated SOC knowledge base — and writes the suppression rule for the benign ones.</p>
-    </div>
-    <div class="feat">
-      <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 3a15 15 0 000 18M3 12h18"/></svg></div>
-      <span class="lab">Intelligence · Threat ID</span>
-      <h3>Who's behind it?</h3><p>A fused threat-actor verdict on every source IP escalates the alerts that matter — a single login from a known-bad address outranks a thousand harmless ones.</p>
-    </div>
+<!-- HOW -->
+<section id="how" class="wrap">
+  <div class="rv"><span class="kick">How it reasons</span>
+  <h2 class="h2 display">A raw SIEM sees a log. DTX sees an attack.</h2>
+  <p class="desc">Three independent intelligences weigh in on every alert. None of them decides alone — the verdict is their convergence.</p></div>
+  <div class="bento">
+    <div class="cell wide rv"><div class="bezel"><div class="core card feature">
+      <span class="kl">Prediction · ODIN</span><h3>What is coming</h3>
+      <p>Forecasts which attack classes are trending and flags volume spikes across your sensor fleet — early warning, before the pattern reaches your endpoints.</p>
+    </div></div></div>
+    <div class="cell rv"><div class="bezel"><div class="core card">
+      <span class="kl">Knowledge · DAN-O</span><h3>What it is</h3>
+      <p>Explains each alert in plain language against a curated operations knowledge base — and writes the suppression rule for the benign ones, so the noise stops.</p>
+    </div></div></div>
+    <div class="cell rv"><div class="bezel"><div class="core card">
+      <span class="kl">Intelligence · Threat ID</span><h3>Who is behind it</h3>
+      <p>A fused threat-actor verdict on every source address. One login from a known-hostile host outweighs a thousand harmless ones.</p>
+    </div></div></div>
+    <div class="cell wide rv"><div class="bezel"><div class="core card feature">
+      <span class="kl">The convergence</span><h3>One decision, on your terms</h3>
+      <p>Reasoning runs on a local model — CJIS-adjacent and air-gapped by design. The three brains are shared across the whole suite, so intelligence learned at one layer sharpens the others.</p>
+    </div></div></div>
   </div>
 </section>
 
-<!-- DETECT PREDICT HARDEN -->
-<section class="wrap fadeup">
-  <span class="stitle">Detect · Predict · Harden</span>
-  <h2 class="sh">The SOC that tunes itself — and hardens the host so there's less to detect.</h2>
-  <div class="feats">
-    <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></div>
-      <h3>AI-triaged detection</h3><p>Every alert gets a plain-English verdict — benign, real, or needs-review — with confidence, so you see signal, not a firehose.</p></div>
-    <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3v18h18M7 14l4-4 3 3 5-6"/></svg></div>
-      <h3>Predictive early-warning</h3><p>Trend forecasting and spike detection across your sensor fleet flag emerging attacks and pre-tune what to watch for.</p></div>
-    <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 2L4 5v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"/><path d="M9 12l2 2 4-4.5"/></svg></div>
-      <h3>Opt-in hardening</h3><p>Scores the host against a CIS/STIG benchmark, proposes the exact fixes with rollback, and watches for posture drift.</p></div>
-    <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div>
-      <h3>Sovereign by default</h3><p>The analysis runs on a local model. Your alert data never leaves the box — built for CJIS-adjacent and air-gapped environments.</p></div>
-    <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
-      <h3>Auto-suppression</h3><p>Benign patterns are recognized and the noise is suppressed automatically — the false positives that bury most teams simply stop.</p></div>
-    <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="9" r="2.5"/><circle cx="9" cy="18" r="2.5"/><path d="M8 7l8 1M8 16l8-6"/></svg></div>
-      <h3>Built on an open engine</h3><p>A proven open detection engine at the core, untouched — the differentiated intelligence is the layer on top.</p></div>
+<!-- CAPABILITIES -->
+<section id="caps" class="wrap">
+  <div class="rv"><span class="kick">Detect · Predict · Harden</span>
+  <h2 class="h2 display">The operations layer that tunes itself — and hardens the host so there is less to detect.</h2></div>
+  <div class="bento">
+    <div class="cell rv"><div class="bezel"><div class="core card"><div class="ci"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></div><h3>Triaged detection</h3><p>Every alert carries a plain-language verdict and a confidence — signal, not a firehose.</p></div></div></div>
+    <div class="cell rv"><div class="bezel"><div class="core card"><div class="ci"><svg viewBox="0 0 24 24"><path d="M3 3v18h18M7 14l4-4 3 3 5-6"/></svg></div><h3>Predictive warning</h3><p>Forecasting and spike detection surface emerging attacks before they land.</p></div></div></div>
+    <div class="cell rv"><div class="bezel"><div class="core card"><div class="ci"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-3Z"/><path d="M9 12l2 2 4-4.5"/></svg></div><h3>Posture hardening</h3><p>Scores the host against a CIS/STIG benchmark, proposes each fix with rollback, and watches for drift.</p></div></div></div>
+    <div class="cell rv"><div class="bezel"><div class="core card"><div class="ci"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h3>Sovereign runtime</h3><p>Analysis runs on a local model; alert data never leaves the building.</p></div></div></div>
+    <div class="cell rv"><div class="bezel"><div class="core card"><div class="ci"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div><h3>Automatic suppression</h3><p>Benign patterns are recognised and quieted — the false positives that bury most teams stop.</p></div></div></div>
+    <div class="cell rv"><div class="bezel"><div class="core card"><div class="ci"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="9" r="2.4"/><circle cx="9" cy="18" r="2.4"/><path d="M8 7l8 1M8 16l8-6"/></svg></div><h3>Open detection core</h3><p>A proven open engine underneath, untouched — the differentiated reasoning sits on top.</p></div></div></div>
   </div>
 </section>
 
-<!-- DEFENSE IN DEPTH -->
-<section class="wrap fadeup">
-  <span class="stitle">Part of the suite</span>
-  <h2 class="sh">One layer of a defense-in-depth package.</h2>
-  <p class="sp">Omega Point DTX is the endpoint core. Four products cover four independent layers — unified by the same converged intelligence, so if one layer misses, the next one catches it.</p>
+<!-- SUITE -->
+<section id="suite" class="wrap">
+  <div class="rv"><span class="kick">Part of the suite</span>
+  <h2 class="h2 display">One layer of a defense-in-depth package.</h2>
+  <p class="desc">Four products, four independent layers — bound by the same converged intelligence. If one layer misses, the next one catches it.</p></div>
   <div class="layers">
-    <div class="layer"><span class="ln">Layer 1 · Intelligence</span><h4>Threat ID</h4><p>Know the enemy first — a fused bad-actor feed and sensor fleet.</p></div>
-    <div class="layer"><span class="ln">Layer 2 · Perimeter</span><h4>Omega Guard</h4><p>Defend your name — clone, impersonation and brand-abuse detection.</p></div>
-    <div class="layer"><span class="ln">Layer 3 · Authenticity</span><h4>Omega Lens</h4><p>Defend the human layer — deepfake and synthetic-media detection.</p></div>
-    <div class="layer here"><span class="you">You are here</span><span class="ln">Layer 4 · Core</span><h4>Omega Point DTX</h4><p>Defend the systems — detect, predict, and harden the endpoint.</p></div>
+    <div class="rv"><div class="bezel"><div class="core lay"><span class="ln">Layer 01 · Intelligence</span><h4>Threat ID</h4><p>Know the adversary first — a fused actor feed and sensor fleet.</p></div></div></div>
+    <div class="rv"><div class="bezel"><div class="core lay"><span class="ln">Layer 02 · Perimeter</span><h4>Omega Guard</h4><p>Defend the name — clone, impersonation and brand-abuse detection.</p></div></div></div>
+    <div class="rv"><div class="bezel"><div class="core lay"><span class="ln">Layer 03 · Authenticity</span><h4>Omega Lens</h4><p>Defend the human layer — deepfake and synthetic-media detection.</p></div></div></div>
+    <div class="rv"><div class="bezel self"><div class="core lay"><span class="ln">Layer 04 · Core</span><h4>Omega Point DTX</h4><p>Defend the systems — detect, predict and harden the endpoint.</p><span class="here">This product</span></div></div></div>
   </div>
 </section>
 
-<!-- CTA -->
-<section id="access" class="wrap fadeup">
-  <div class="cta">
-    <h2>Bring the convergence to your team.</h2>
-    <p>Omega Point DTX is in active development, onboarding early-access pilots with law-enforcement, government, and regulated organizations that can't hand their telemetry to a cloud SOC.</p>
-    <a class="btn btn-p" href="https://omegapointsolutions.com" style="justify-content:center">Request early access
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#0a0620" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-  </div>
+<!-- CLOSING -->
+<section id="access" class="wrap">
+  <div class="bezel"><div class="core close-inner">
+    <h2 class="display">Bring the convergence to your team.</h2>
+    <p>Omega Point DTX is in active development, onboarding early-access pilots with law-enforcement, government and regulated organisations that cannot hand their telemetry to a cloud SOC.</p>
+    <a class="btn btn-p" href="https://omegapointsolutions.com">Request early access<span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#04150c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+  </div></div>
 </section>
 
 <footer class="wrap">
-  Part of the <b>Omega Point Cybersecurity Suite</b> — Threat ID · Omega Guard · Omega Lens · Omega Point DTX. One converged intelligence.<br>
-  Sovereign · CJIS-ready · built on Section&nbsp;889-clean infrastructure. © Omega Point Solutions LLC.
+  <div class="foot">
+    <div>Part of the <b>Omega Point Cybersecurity Suite</b> — Threat ID · Omega Guard · Omega Lens · Omega Point DTX.</div>
+    <div>Sovereign · CJIS-ready · Section 889-clean. © Omega Point Solutions LLC.</div>
+  </div>
 </footer>
 
 <script>
-  const lines=["Grounding alert · DAN-O knowledge…","Enriching source IP · Threat ID…","Forecasting attack class · ODIN…","Convergence → verdict: REAL · 99%","Suppressing benign noise · self-tuning…"];
-  let li=0,ci=0,del=false,el=document.getElementById('tw');
-  (function tw(){const s=lines[li];el.textContent=del?s.slice(0,ci--):s.slice(0,ci++);
-    if(!del&&ci===s.length+1){del=true;setTimeout(tw,1300);return;}
-    if(del&&ci===0){del=false;li=(li+1)%lines.length;}setTimeout(tw,del?26:52);})();
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.12});
-  document.querySelectorAll('.fadeup').forEach(n=>io.observe(n));
-
-  // constellation field
-  (function(){const c=document.getElementById('fx'),x=c.getContext('2d'),dpr=Math.min(devicePixelRatio||1,2);let W,H,P;
-    function rs(){W=innerWidth;H=innerHeight;c.width=W*dpr;c.height=H*dpr;c.style.width=W+'px';c.style.height=H+'px';x.setTransform(dpr,0,0,dpr,0,0);
-      P=Array.from({length:Math.min(66,Math.floor(W/22))},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22,r:Math.random()*1.5+.5}));}
-    rs();addEventListener('resize',rs);
-    (function loop(){x.clearRect(0,0,W,H);
-      for(const p of P){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
-        x.beginPath();x.arc(p.x,p.y,p.r,0,6.283);x.fillStyle='rgba(157,139,255,.5)';x.fill();}
-      for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const a=P[i],b=P[j],d=Math.hypot(a.x-b.x,a.y-b.y);
-        if(d<130){x.strokeStyle='rgba(157,139,255,'+(.13*(1-d/130))+')';x.lineWidth=1;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke();}}
-      requestAnimationFrame(loop);})();})();
-
-  // convergence: three source brains flow packets into one hub
-  (function(){const c=document.getElementById('conv');if(!c)return;
-    const x=c.getContext('2d'),S=440,dpr=Math.min(devicePixelRatio||1,2);
-    c.width=S*dpr;c.height=S*dpr;c.style.width=S+'px';c.style.height=S+'px';x.scale(dpr,dpr);
-    const cx=S/2,cy=S/2,R=S*0.38;
-    const srcs=[{a:-Math.PI*0.72,label:'ODIN',sub:'PREDICT'},{a:-Math.PI*0.28,label:'DAN-O',sub:'KNOW'},{a:Math.PI*0.5,label:'THREAT ID',sub:'INTEL'}]
-      .map(s=>({...s,x:cx+Math.cos(s.a)*R,y:cy+Math.sin(s.a)*R,pk:[]}));
-    let t=0,ring=0;
-    (function loop(){x.clearRect(0,0,S,S);t+=0.016;
-      x.strokeStyle='rgba(157,139,255,.07)';x.lineWidth=1;
-      for(let i=1;i<=3;i++){x.beginPath();x.arc(cx,cy,R*i/3.1,0,6.283);x.stroke();}
-      srcs.forEach(s=>{
-        x.strokeStyle='rgba(157,139,255,.18)';x.lineWidth=1.2;x.beginPath();x.moveTo(s.x,s.y);x.lineTo(cx,cy);x.stroke();
-        x.beginPath();x.arc(s.x,s.y,5,0,6.283);x.fillStyle='rgba(157,139,255,.95)';x.fill();
-        x.beginPath();x.arc(s.x,s.y,11,0,6.283);x.strokeStyle='rgba(157,139,255,.3)';x.lineWidth=1;x.stroke();
-        x.textAlign='center';x.fillStyle='rgba(214,216,236,.92)';x.font='700 11px JetBrains Mono,monospace';
-        const below=s.y>cy-10;x.fillText(s.label,s.x,below?s.y+22:s.y-15);
-        x.fillStyle='rgba(157,139,255,.7)';x.font='600 8px JetBrains Mono,monospace';x.fillText(s.sub,s.x,below?s.y+32:s.y-5);
-        if(Math.random()<0.05)s.pk.push({p:0,red:Math.random()<0.28});
-        s.pk.forEach(k=>{k.p+=0.013;const px=s.x+(cx-s.x)*k.p,py=s.y+(cy-s.y)*k.p,col=k.red?'231,76,60':'157,139,255';
-          x.beginPath();x.arc(px,py,2.6,0,6.283);x.fillStyle='rgba('+col+',.95)';x.fill();
-          x.beginPath();x.arc(px,py,6,0,6.283);x.strokeStyle='rgba('+col+',.28)';x.lineWidth=1;x.stroke();
-          if(k.p>=1&&ring<=0)ring=1;});
-        s.pk=s.pk.filter(k=>k.p<1);});
-      if(ring>0){x.beginPath();x.arc(cx,cy,18+(1-ring)*46,0,6.283);x.strokeStyle='rgba(157,139,255,'+(ring*.6)+')';x.lineWidth=2;x.stroke();ring=Math.max(0,ring-0.018);}
-      const pulse=1+Math.sin(t*2)*0.09;
-      const g=x.createRadialGradient(cx,cy,0,cx,cy,26*pulse);g.addColorStop(0,'rgba(157,139,255,.95)');g.addColorStop(1,'rgba(109,94,252,.12)');
-      x.beginPath();x.arc(cx,cy,17*pulse,0,6.283);x.fillStyle=g;x.fill();
-      x.beginPath();x.arc(cx,cy,23,0,6.283);x.strokeStyle='rgba(157,139,255,.5)';x.lineWidth=1.5;x.stroke();
-      x.textAlign='center';x.fillStyle='#0a0620';x.font='800 9px JetBrains Mono,monospace';x.fillText('CONVERGE',cx,cy+3);
-      requestAnimationFrame(loop);})();})();
-
-  // 3D parallax on the triage card
-  (function(){const card=document.getElementById('card'),scn=document.querySelector('.scanner');if(!card)return;
-    scn.addEventListener('pointermove',e=>{const r=scn.getBoundingClientRect();const px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;
-      card.style.transform='rotateY('+(px*11)+'deg) rotateX('+(-py*11)+'deg) translateZ(22px)';});
-    scn.addEventListener('pointerleave',()=>{card.style.transform='';});})();
-
-  // count-up stats (supports data-suf)
-  (function(){const ob=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;
-    const el=e.target,to=parseFloat(el.dataset.to),dec=+(el.dataset.dec||0),pre=el.dataset.pre||'',suf=el.dataset.suf||'';let s=null;
-    (function step(ts){if(!s)s=ts;const p=Math.min((ts-s)/1100,1),v=to*(1-Math.pow(1-p,3));
-      el.textContent=pre+(dec?v.toFixed(dec):Math.round(v))+suf;if(p<1)requestAnimationFrame(step);})(performance.now());
-    ob.unobserve(el);}),{threshold:.6});
-    document.querySelectorAll('.stat b').forEach(n=>ob.observe(n));})();
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.rv').forEach((n,i)=>{ n.style.transitionDelay=(Math.min(i%4,3)*0.06)+'s'; io.observe(n); });
 </script>
 </body>
 </html>

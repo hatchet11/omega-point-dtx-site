@@ -10,7 +10,7 @@ A modern detection engine throws hundreds of "critical" alerts a day — most of
 from normal software. Diagnosing, tuning, and running that engine takes a security engineer a small
 agency doesn't have. So the alerts get ignored, and the real one slips through.
 
-## Three brains, one pane of glass
+## Detect · Predict · Harden — one pane of glass
 Omega Sentinel adds an intelligence layer on top of a proven open detection engine:
 
 - **Grounds it** — an AI analyst explains every alert in plain English and tells you whether it's a
@@ -19,6 +19,8 @@ Omega Sentinel adds an intelligence layer on top of a proven open detection engi
   matter (a single login from a known-malicious address outranks a thousand harmless ones).
 - **Predicts it** — trend forecasting and spike detection across your sensors give you early warning
   of what's coming, and quietly pre-tune what to watch for.
+- **Hardens it** — an optional posture module scores the host against a security benchmark, proposes
+  the exact fixes (with rollback), and watches for drift — so there's less to detect in the first place.
 
 ## Why it's different
 - **Sovereign by default** — the analysis runs locally. Your alert data never leaves your control.

@@ -1,0 +1,14 @@
+{
+  "name": "Omega Point DTX",
+  "short_name": "DTX",
+  "description": "Sovereign security operations — detection, triage and response on a model that runs entirely on your own hardware.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#08090b",
+  "theme_color": "#08090b",
+  "icons": [
+    { "src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
